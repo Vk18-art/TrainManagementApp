@@ -1,8 +1,9 @@
 import java.util.*;
+import java.util.stream.*;
 
 public class TrainManagementApp {
 
-    // Inner Bogie class to model passenger bogies
+    // Reusing Bogie model from UC7
     static class Bogie {
         String name;
         int capacity;
@@ -16,7 +17,7 @@ public class TrainManagementApp {
     public static void main(String[] args) {
 
         System.out.println("====================================");
-        System.out.println("UC7 - Sort Bogies by Capacity (Comparator)");
+        System.out.println("UC8 - Filter Passenger Bogies Using Streams");
         System.out.println("====================================\n");
 
         // Create list of passenger bogies
@@ -27,26 +28,23 @@ public class TrainManagementApp {
         bogies.add(new Bogie("First Class", 24));
         bogies.add(new Bogie("General", 90));
 
-        // Display before sorting
-        System.out.println("Before Sorting:");
+        // Display all bogies
+        System.out.println("All Bogies:");
         for (Bogie b : bogies) {
             System.out.println(b.name + " -> " + b.capacity);
         }
 
-        // Sort using Comparator (ascending order of capacity)
-        Collections.sort(bogies, new Comparator<Bogie>() {
-            @Override
-            public int compare(Bogie b1, Bogie b2) {
-                return b1.capacity - b2.capacity;
-            }
-        });
+        // Filter bogies with capacity > 60 using Streams
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        // Display after sorting
-        System.out.println("\nAfter Sorting by Capacity:");
-        for (Bogie b : bogies) {
+        // Display filtered bogies
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        for (Bogie b : filteredBogies) {
             System.out.println(b.name + " -> " + b.capacity);
         }
 
-        System.out.println("\nUC7 sorting completed...");
+        System.out.println("\nUC8 filtering completed...");
     }
 }
